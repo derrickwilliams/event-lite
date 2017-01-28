@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    image: mongo
+    volumes:
+      - ${PWD}/data:/data/db
+  web:
+    build: .
+    environment:
+      - 'PORT=4000'
+    volumes:
+      - ${PWD}:/service
+    ports:
+      - '4000:4000'
+    links:
+      - db
+    command: npm run start
